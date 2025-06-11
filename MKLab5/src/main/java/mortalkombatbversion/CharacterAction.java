@@ -4,6 +4,7 @@
  */
 package mortalkombatbversion;
 
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -41,25 +42,35 @@ public class CharacterAction {
     public Player ChooseEnemy(JLabel label, JLabel label2, JLabel text, JLabel label3) {
         int i = (int) (Math.random() * 4);
         ImageIcon icon1 = null;
+        ImageIcon originalIcon;
+        Image scaledImage;
         switch (i) {
             case 0:
                 enemyy = enemyes[0];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Baraka.jpg");
+                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Baraka.png"));
+                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+                icon1 = new ImageIcon(scaledImage);
                 label2.setText("Baraka (танк)");
                 break;
             case 1:
                 enemyy = enemyes[1];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Sub-Zero.jpg");
+                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Sub-Zero.png"));
+                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+                icon1 = new ImageIcon(scaledImage);
                 label2.setText("Sub-Zero (маг)");
                 break;
             case 2:
                 enemyy = enemyes[2];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Liu Kang.jpg");
+                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Liu Kang.png"));
+                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+                icon1 = new ImageIcon(scaledImage);
                 label2.setText("Liu Kang (боец)");
                 break;
             case 3:
                 enemyy = enemyes[3];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Sonya Blade.jpg");
+                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Sonya Blade.png"));
+                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+                icon1 = new ImageIcon(scaledImage);
                 label2.setText("Sonya Blade (солдат)");
                 break;
         }
@@ -70,8 +81,9 @@ public class CharacterAction {
     }
 
     public Player ChooseBoss(JLabel label, JLabel label2, JLabel text, JLabel label3, int i) {
-        ImageIcon icon1 = null;
-        icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Shao Kahn.png");
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Pictures/Shao Kahn.png"));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+        ImageIcon icon1 = new ImageIcon(scaledImage);
         label2.setText("Shao Kahn (босс)");
         switch (i) {
             case 2:

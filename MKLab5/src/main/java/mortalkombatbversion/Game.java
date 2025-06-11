@@ -14,6 +14,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -67,22 +68,31 @@ public class Game {
                 r2.createCell(2).setCellValue(results.get(i).getPoints());
             }
         }
-        File f = new File("C:\\Users\\Мария\\Desktop\\Results.xlsx");
-        book.write(new FileOutputStream(f));
+    File file = new File(System.getProperty("user.dir") + "Results.xlsx");
+    
+    try (FileOutputStream fos = new FileOutputStream(file)) {
+        book.write(fos);
+    } finally {
         book.close();
+    }
     }
     
     public ArrayList<Result> getResults(){
         return this.results;
     }
 
-    public void ReadFromExcel() throws IOException{
-        XSSFWorkbook book = new XSSFWorkbook("C:\\Users\\Мария\\Desktop\\Results.xlsx");
+        public void ReadFromExcel() throws IOException, InvalidFormatException {
+    File file = new File(System.getProperty("user.dir") + "Results.xlsx");
+    
+    if (file.exists()) {
+        try (XSSFWorkbook book = new XSSFWorkbook(file)) {
         XSSFSheet sh = book.getSheetAt(0);
         for (int i=1; i<=sh.getLastRowNum();i++) {
             results.add(new Result(sh.getRow(i).getCell(1).getStringCellValue(),(int)sh.getRow(i).getCell(2).getNumericCellValue()));
         }
     }
+    }
+}
     
     public void WriteToTable(JTable table){
         DefaultTableModel model = (DefaultTableModel)table.getModel();
