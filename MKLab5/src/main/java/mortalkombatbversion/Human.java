@@ -49,10 +49,14 @@ public class Human extends Player{
     public void setNextExperience(int e){
         this.nextexperience=e;
     }
-    public void setWin(){
+    public void plusWin(){
         this.win++;
     }
     
+    public void setWin(int e){
+        this.win = e;
+    }
+
     @Override
     public String getName(){
         return "You";

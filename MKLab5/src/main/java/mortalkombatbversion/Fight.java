@@ -76,7 +76,7 @@ public class Fight {
             JProgressBar pr1, JProgressBar pr2, JDialog dialog1,
             JDialog dialog2, JFrame frame, ArrayList<Result> results,
             JLabel label4, JLabel label5, JLabel label6, JLabel label7,
-            JLabel label8, Items[] items, JRadioButton rb) {
+            JLabel label8, Items[] items, JRadioButton rb, Game game) {
         label7.setText("");
         human.setAttack(a);
 
@@ -105,97 +105,132 @@ public class Fight {
             label7.setText("Вы воскресли");
         }
         if (human.getHealth() <= 0 | enemy.getHealth() <= 0) {
-            if (((Human) human).getWin() == 11) {
-                EndFinalRound(((Human) human), action, results, dialog1, dialog2,
-                        frame, label4, label5);
-            } else {
-                EndRound(human, enemy, dialog, label3, action, items);
+        if (((Human) human).getWin() == 11) {
+            EndFinalRound(((Human) human), action, results, dialog1, dialog2,
+                    frame, label4, label5);
+        } else {
+            EndRound(human, enemy, dialog, label3, action, items, game, 
+                dialog1, dialog2, frame, label4, label5);
             }
         }
     }
 
     public void EndRound(Player human, Player enemy, JDialog dialog, JLabel label,
-            CharacterAction action, Items[] items) {
+    CharacterAction action, Items[] items, Game game, 
+    JDialog victoryDialog, JDialog noTopDialog, JFrame mainFrame,
+    JLabel victoryLabel, JLabel noTopLabel) {
 
-        dialog.setVisible(true);
-        dialog.setBounds(300, 150, 700, 600);
-        if (human.getHealth() > 0) {
-            label.setText("You win");
-            ((Human) human).setWin();
-
-            if (enemy instanceof ShaoKahn) {
-                action.AddItems(38, 23, 8, items);
-                action.AddPointsBoss(((Human) human), action.getEnemyes());
-            } else {
-                action.AddItems(25, 15, 5, items);
-                action.AddPoints(((Human) human), action.getEnemyes());
-            }
-        } else {
-            label.setText(enemy.getName() + " win");
-        }
-
-        i = 1;
-        k = -1;
-        kind_attack = ResetAttack();
-
+    Human player = (Human) human;
+    
+    // Инициализация первой локации
+    if (game.getCurrentLocation() == 0) {
+        game.setHuman(player);
+        game.nextLocation(); // Это установит количество врагов для первой локации
     }
+
+    dialog.setVisible(true);
+    dialog.setBounds(300, 150, 700, 600);
+    
+    // Всегда увеличиваем счетчик пройденных врагов
+    player.setWin(player.getWin() + 1);
+    
+    if (player.getHealth() > 0) {
+        label.setText("You win");
+        // Награда за победу
+        if (enemy instanceof ShaoKahn) {
+            action.AddItems(38, 23, 8, items);
+            action.AddPointsBoss(player, action.getEnemyes()); // Добавлено начисление опыта за босса
+            game.nextLocation(); // Переход на следующую локацию
+            if (game.isLastLocation()) {
+                EndFinalRound(player, action, game.getResults(), 
+                    victoryDialog, noTopDialog, mainFrame, victoryLabel, noTopLabel);
+                return;
+            }
+            player.setWin(0); // Сброс счетчика побед для новой локации
+        } else {
+            action.AddItems(25, 15, 5, items);
+            action.AddPoints(player, action.getEnemyes());
+        }
+    } else {
+        label.setText(enemy.getName() + " win");
+        // Не даем награды за поражение
+    }
+
+    // Восстанавливаем полное здоровье игрока в любом случае
+    player.setNewHealth(player.getMaxHealth());
+
+    i = 1;
+    k = -1;
+    kind_attack = ResetAttack();
+}
 
     public void EndFinalRound(Human human, CharacterAction action,
-            ArrayList<Result> results, JDialog dialog1, JDialog dialog2, JFrame frame,
-            JLabel label1, JLabel label2) {
-        String text = "Победа не на вашей стороне";
-        if (human.getHealth() > 0) {
-            human.setWin();
-            action.AddPoints(human, action.getEnemyes());
-            text = "Победа на вашей стороне";
-        }
-        boolean top = false;
-        if (results == null) {
-            top = true;
-        } else {
-            int i = 0;
-            for (int j = 0; j < results.size(); j++) {
-                if (human.getPoints() < results.get(j).getPoints()) {
-                    i++;
-                }
-            }
-            if (i < 10) {
-                top = true;
-            }
-        }
-        if (top) {
-            dialog1.setVisible(true);
-            dialog1.setBounds(150, 150, 600, 500);
-            label1.setText(text);
-        } else {
-            dialog2.setVisible(true);
-            dialog2.setBounds(150, 150, 470, 360);
-            label2.setText(text);
-        }
-        frame.dispose();
+        ArrayList<Result> results, JDialog dialog1, JDialog dialog2, JFrame frame,
+        JLabel label1, JLabel label2) {
+        
+    String text = "Победа не на вашей стороне";
+    if (human.getHealth() > 0) {
+        human.setWin(12); // 12 - специальный код полной победы
+        action.AddPoints(human, action.getEnemyes());
+        text = "Победа на вашей стороне! Игра пройдена!";
     }
+    
+    boolean top = false;
+    if (results == null) {
+        top = true;
+    } else {
+        int i = 0;
+        for (int j = 0; j < results.size(); j++) {
+            if (human.getPoints() < results.get(j).getPoints()) {
+                i++;
+            }
+        }
+        if (i < 10) {
+            top = true;
+        }
+    }
+    
+    if (top) {
+        dialog1.setVisible(true);
+        dialog1.setBounds(150, 150, 600, 500);
+        label1.setText(text);
+    } else {
+        dialog2.setVisible(true);
+        dialog2.setBounds(150, 150, 470, 360);
+        label2.setText(text);
+    }
+    frame.dispose();
+}
 
     public int[] ResetAttack() {
         int a[] = {0};
         return a;
     }
 
-    public Player NewRound(Player human, JLabel label, JProgressBar pr1,
-            JProgressBar pr2, JLabel label2, JLabel text, JLabel label3, CharacterAction action) {
+    public Player NewRound(Player human, JLabel enemyImageLabel, JProgressBar pr1,
+        JProgressBar pr2, JLabel enemyInfoLabel, JLabel damageLabel, 
+        JLabel healthLabel, CharacterAction action, Game game) {
 
-        Player enemy1 = null;
-        if (((Human) human).getWin() == 6 | ((Human) human).getWin() == 11) {
-            enemy1 = action.ChooseBoss(label, label2, text, label3, human.getLevel());
-        } else {
-            enemy1 = action.ChooseEnemy(label, label2, text, label3);
-        }
-        pr1.setMaximum(human.getMaxHealth());
-        pr2.setMaximum(enemy1.getMaxHealth());
-        human.setNewHealth(human.getMaxHealth());
-        enemy1.setNewHealth(enemy1.getMaxHealth());
-        action.HP(human, pr1);
-        action.HP(enemy1, pr2);
-        return enemy1;
+    Human player = (Human) human;
+    int enemiesInLocation = action.getEnemiesCountForLocation(player.getLevel(), game.getCurrentLocation());
+    int currentEnemyNumber = player.getWin() + 1;
+    boolean isBossFight = currentEnemyNumber >= enemiesInLocation;
+
+    Player enemy;
+    if (isBossFight) {
+        enemy = action.ChooseBoss(enemyImageLabel, enemyInfoLabel, damageLabel, healthLabel, game.getCurrentLocation());
+        enemyInfoLabel.setText("Босс локации " + game.getCurrentLocation() + " (" + currentEnemyNumber + "/" + enemiesInLocation + ")");
+    } else {
+        enemy = action.ChooseEnemy(enemyImageLabel, enemyInfoLabel, damageLabel, healthLabel);
+        enemyInfoLabel.setText(enemy.getName() + " (" + currentEnemyNumber + "/" + enemiesInLocation + ")");
     }
 
+    pr1.setMaximum(human.getMaxHealth());
+    pr2.setMaximum(enemy.getMaxHealth());
+    enemy.setNewHealth(enemy.getMaxHealth()); // Врага все равно восстанавливаем
+    action.HP(human, pr1);
+    action.HP(enemy, pr2);
+    
+    return enemy;
+}
 }

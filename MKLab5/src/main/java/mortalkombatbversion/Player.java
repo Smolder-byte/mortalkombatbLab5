@@ -24,8 +24,11 @@ public class Player {
         this.maxhealth=health;
     }
    
-    public void setLevel(){
+    public void plusLevel(){
         this.level++;
+    }
+    public void setLevel(int lvl){
+        this.level = lvl;
     }
     public void setHealth(int h){
         this.health+=h;

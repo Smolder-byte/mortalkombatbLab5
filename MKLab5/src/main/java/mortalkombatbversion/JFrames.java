@@ -122,6 +122,8 @@ public class JFrames extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -291,11 +293,10 @@ public class JFrames extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(99, 99, 99)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(55, 55, 55)
                                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +370,7 @@ public class JFrames extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -882,6 +883,14 @@ public class JFrames extends javax.swing.JFrame {
         Image scaledLogo = originalLogo.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
         jLabel3.setIcon(new ImageIcon(scaledLogo));
 
+        jLabel33.setFont(new java.awt.Font("Comic Sans MS", 0, 12));
+        jLabel33.setText("Количество локаций:");
+        jLabel33.setToolTipText("");
+
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setFont(new java.awt.Font("Comic Sans MS", 0, 12));
+        jTextField2.setText("3");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -892,14 +901,21 @@ public class JFrames extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(206, 206, 206))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -908,7 +924,11 @@ public class JFrames extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -936,34 +956,33 @@ public class JFrames extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jFrame1.setVisible(rootPaneCheckingEnabled);
-        jFrame1.setSize(1000,700);
-        
-        human = game.NewHuman(jProgressBar1);
-        
-        enemy = game.NewEnemy(jLabel4, jLabel5, jLabel10, jLabel13, jProgressBar2);
-        
-        game.change.NewRoundTexts(human, enemy, jProgressBar1, jProgressBar2, 
-                jLabel17, jLabel16, jLabel6, jLabel19, jLabel12, jLabel13, jLabel9,
-                jLabel26, jLabel27, game.fight.i, items, jRadioButton1, jRadioButton2, jRadioButton3);
-        
-        /*game.action.setEnemyes();
-        enemy = game.action.ChooseEnemy(jLabel4, jLabel5, jLabel10, jLabel13);
-                //a.ChooseEmemy(human, jLabel4, jProgressBar2, jLabel5, jLabel10, jLabel13);
-        
-        //Fight f = new Fight();
-        
-        game.action.HP(human, jProgressBar1);
-        game.action.HP(enemy, jProgressBar2);
-        jProgressBar2.setMaximum(enemy.getMaxHealth());*/
-        
+            try {
+        int locations = Integer.parseInt(jTextField2.getText());
+        if (locations < 1) {
+            locations = 1;
+        }
+        game.setTotalLocations(locations);
+    } catch (NumberFormatException e) {
+        game.setTotalLocations(5); // Значение по умолчанию
+    }
+    
+    jFrame1.setVisible(rootPaneCheckingEnabled);
+    jFrame1.setSize(1000,700);
+    
+    human = game.NewHuman(jProgressBar1);
+    game.setHuman(human); 
+    enemy = game.NewEnemy(jLabel4, jLabel5, jLabel10, jLabel13, jProgressBar2);
+    
+    game.change.NewRoundTexts(human, enemy, jProgressBar1, jProgressBar2, 
+            jLabel17, jLabel16, jLabel6, jLabel19, jLabel12, jLabel13, jLabel9,
+            jLabel26, jLabel27, game.fight.i, items, jRadioButton1, jRadioButton2, jRadioButton3);   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         game.fight.Hit( human, enemy, 1, jLabel13, jLabel12, jDialog1, 
                 jLabel18, game.action, jProgressBar1, jProgressBar2, jDialog2, 
                 jDialog4, jFrame1, game.getResults(), jLabel20, jLabel24, 
-                jLabel26, jLabel29, jLabel27, items, jRadioButton3);
+                jLabel26, jLabel29, jLabel27, items, jRadioButton3, game);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -971,20 +990,22 @@ public class JFrames extends javax.swing.JFrame {
         game.fight.Hit( human, enemy, 0, jLabel13, jLabel12, jDialog1, 
                 jLabel18, game.action, jProgressBar1, jProgressBar2, jDialog2, 
                 jDialog4, jFrame1, game.getResults(), jLabel20, jLabel24, 
-                jLabel26, jLabel29, jLabel27, items, jRadioButton3);
+                jLabel26, jLabel29, jLabel27, items, jRadioButton3, game);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    enemy = game.fight.NewRound(human, jLabel4, jProgressBar1, jProgressBar2, 
+            jLabel5, jLabel10, jLabel13, game.action, game);
 
-        enemy=game.fight.NewRound(human, jLabel4, jProgressBar1, jProgressBar2, 
-                jLabel5, jLabel10, jLabel13, game.action);
+    // Обновляем отображение здоровья игрока (оно уже восстановлено в EndRound)
+    game.action.HP(human, jProgressBar1);
+    jLabel12.setText(human.getHealth() + "/" + human.getMaxHealth());
 
-        
-        game.change.NewRoundTexts(human, enemy, jProgressBar1, jProgressBar2, 
-                jLabel17, jLabel16, jLabel6, jLabel19, jLabel12, jLabel13, jLabel9,
-                jLabel26, jLabel27, game.fight.i, items, jRadioButton1, jRadioButton2, jRadioButton3);
+    game.change.NewRoundTexts(human, enemy, jProgressBar1, jProgressBar2, 
+            jLabel17, jLabel16, jLabel6, jLabel19, jLabel12, jLabel13, jLabel9,
+            jLabel26, jLabel27, game.fight.i, items, jRadioButton1, jRadioButton2, jRadioButton3);
 
-        jDialog1.dispose();
+    jDialog1.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -1128,6 +1149,7 @@ public class JFrames extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1150,5 +1172,6 @@ public class JFrames extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

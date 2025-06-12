@@ -32,72 +32,65 @@ public class CharacterAction {
         enemyes[2] = fabric.create(2, 0);
         enemyes[3] = fabric.create(3, 0);
         enemyes[4] = fabric.create(4, 0);
-        enemyes[5] = fabric.create(4, 0);
+//        enemyes[5] = fabric.create(4, 0);
     }
 
     public Player[] getEnemyes() {
         return this.enemyes;
     }
 
-    public Player ChooseEnemy(JLabel label, JLabel label2, JLabel text, JLabel label3) {
-        int i = (int) (Math.random() * 4);
-        ImageIcon icon1 = null;
-        ImageIcon originalIcon;
-        Image scaledImage;
-        switch (i) {
-            case 0:
-                enemyy = enemyes[0];
-                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Baraka.png"));
-                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
-                icon1 = new ImageIcon(scaledImage);
-                label2.setText("Baraka (танк)");
-                break;
-            case 1:
-                enemyy = enemyes[1];
-                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Sub-Zero.png"));
-                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
-                icon1 = new ImageIcon(scaledImage);
-                label2.setText("Sub-Zero (маг)");
-                break;
-            case 2:
-                enemyy = enemyes[2];
-                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Liu Kang.png"));
-                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
-                icon1 = new ImageIcon(scaledImage);
-                label2.setText("Liu Kang (боец)");
-                break;
-            case 3:
-                enemyy = enemyes[3];
-                originalIcon = new ImageIcon(getClass().getResource("/Pictures/Sonya Blade.png"));
-                scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
-                icon1 = new ImageIcon(scaledImage);
-                label2.setText("Sonya Blade (солдат)");
-                break;
-        }
-        label.setIcon(icon1);
-        text.setText(Integer.toString(enemyy.getDamage()));
-        label3.setText(Integer.toString(enemyy.getHealth()) + "/" + Integer.toString(enemyy.getMaxHealth()));
-        return enemyy;
+public Player ChooseEnemy(JLabel imageLabel, JLabel infoLabel, JLabel damageLabel, JLabel healthLabel) {
+    int i = (int) (Math.random() * 4);
+    ImageIcon icon1 = null;
+    
+    switch (i) {
+        case 0:
+            enemyy = enemyes[0];
+            icon1 = createScaledIcon("/Pictures/Baraka.png");
+            infoLabel.setText("Baraka (танк)");
+            break;
+        case 1:
+            enemyy = enemyes[1];
+            icon1 = createScaledIcon("/Pictures/Sub-Zero.png");
+            infoLabel.setText("Sub-Zero (маг)");
+            break;
+        case 2:
+            enemyy = enemyes[2];
+            icon1 = createScaledIcon("/Pictures/Liu Kang.png");
+            infoLabel.setText("Liu Kang (боец)");
+            break;
+        case 3:
+            enemyy = enemyes[3];
+            icon1 = createScaledIcon("/Pictures/Sonya Blade.png");
+            infoLabel.setText("Sonya Blade (солдат)");
+            break;
     }
+    
+    imageLabel.setIcon(icon1);
+    damageLabel.setText(Integer.toString(enemyy.getDamage()));
+    healthLabel.setText(enemyy.getHealth() + "/" + enemyy.getMaxHealth());
+    
+    return enemyy;
+}
 
-    public Player ChooseBoss(JLabel label, JLabel label2, JLabel text, JLabel label3, int i) {
-        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Pictures/Shao Kahn.png"));
-        Image scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
-        ImageIcon icon1 = new ImageIcon(scaledImage);
-        label2.setText("Shao Kahn (босс)");
-        switch (i) {
-            case 2:
-                enemyy = enemyes[4];
-                break;
-            case 4:
-                enemyy = enemyes[5];
-                break;
-        }
-        label.setIcon(icon1);
-        text.setText(Integer.toString(enemyy.getDamage()));
-        label3.setText(Integer.toString(enemyy.getHealth()) + "/" + Integer.toString(enemyy.getMaxHealth()));
-        return enemyy;
-    }
+private ImageIcon createScaledIcon(String path) {
+    ImageIcon originalIcon = new ImageIcon(getClass().getResource(path));
+    Image scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+    return new ImageIcon(scaledImage);
+}
+
+    public Player ChooseBoss(JLabel imageLabel, JLabel infoLabel, JLabel damageLabel, 
+                        JLabel healthLabel, int locationNumber) {
+    enemyy = enemyes[4];
+    ImageIcon icon1 = createScaledIcon("/Pictures/Shao Kahn.png");
+    imageLabel.setIcon(icon1);
+    
+    // Установка характеристик босса
+    damageLabel.setText(Integer.toString(enemyy.getDamage()));
+    healthLabel.setText(enemyy.getHealth() + "/" + enemyy.getMaxHealth());
+    
+    return enemyy;
+}
 
     public int[] EnemyBehavior(int k1, int k2, int k3, int k4, double i) {
         int arr[] = null;
@@ -171,38 +164,56 @@ public class CharacterAction {
         }
         for (int i = 0; i < 5; i++) {
             if (experience_for_next_level[i] == human.getExperience()) {
-                human.setLevel();
+                human.plusLevel();
                 human.setNextExperience(experience_for_next_level[i + 1]);
                 NewHealthHuman(human);
-                for (int j = 0; j < 4; j++) {
+                 for (int j = 0; j < enemyes.length; j++) {
+                if (enemyes[j] != null) {
                     NewHealthEnemy(enemyes[j], human);
                 }
             }
         }
     }
+}
 
     public void AddPointsBoss(Human human, Player[] enemyes) {
-        switch (human.getLevel()) {
+    switch (human.getLevel()) {
+        case 0:
+                human.setExperience(20);
+                human.setPoints(35 + human.getHealth() / 2);
+                break;
+            case 1:
+                human.setExperience(25);
+                human.setPoints(40 + human.getHealth() / 2);
+                break;
             case 2:
                 human.setExperience(30);
                 human.setPoints(45 + human.getHealth() / 2);
+                break;
+            case 3:
+                human.setExperience(40);
+                human.setPoints(55 + human.getHealth() / 2);
                 break;
             case 4:
                 human.setExperience(50);
                 human.setPoints(65 + human.getHealth() / 2);
                 break;
-        }
-        for (int i = 0; i < 5; i++) {
-            if (experience_for_next_level[i] == human.getExperience()) {
-                human.setLevel();
-                human.setNextExperience(experience_for_next_level[i + 1]);
-                NewHealthHuman(human);
-                for (int j = 0; j < 4; j++) {
-                    NewHealthEnemy(enemyes[j], human);
-                }
+    }
+    
+    // Проверка на повышение уровня
+    for (int i = 0; i < 5; i++) {
+        if (experience_for_next_level[i] == human.getExperience()) {
+            human.plusLevel();
+            human.setNextExperience(experience_for_next_level[i + 1]);
+            NewHealthHuman(human);
+            for (int j = 0; j < 4; j++) {
+                if (enemyes[j] != null) {
+                NewHealthEnemy(enemyes[j], human);
             }
         }
     }
+}
+}
 
     public void AddItems(int k1, int k2, int k3, Items[] items) {
         double i = Math.random();
@@ -265,8 +276,9 @@ public class CharacterAction {
         }
         enemy.setMaxHealth((int) enemy.getMaxHealth() * hp / 100);
         enemy.setDamage((int) enemy.getDamage() * damage / 100);
-        enemy.setLevel();
-    }
+        enemy.setLevel(human.getLevel()); // Устанавливаем уровень врага равным уровню игрока
+}
+
 
     public void UseItem(Player human, Items[] items, String name, JDialog dialog, JDialog dialog1) {
         switch (name) {
@@ -298,4 +310,10 @@ public class CharacterAction {
             dialog1.dispose();
         }
     }
+    
+   public int getEnemiesCountForLocation(int playerLevel, int locationNumber) {
+    int baseCount = 3 + locationNumber / 2;
+    return Math.min(baseCount, 5);
+}
+   
 }

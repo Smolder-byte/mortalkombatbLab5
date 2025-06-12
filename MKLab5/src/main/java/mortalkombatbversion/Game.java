@@ -25,6 +25,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class Game {
 
+    private int totalLocations;
+    private int currentLocation;
+    private int currentLocationEnemiesCount;
+    private Human human;
+    
     CharacterAction action = new CharacterAction();
     ChangeTexts change = new ChangeTexts();
     Fight fight = new Fight();
@@ -39,12 +44,13 @@ public class Game {
         return enemy;
     }
     
-    public Human NewHuman(JProgressBar pr1){
-        Human human = new Human (0,80,16,1);
-        action.HP(human, pr1);
-        pr1.setMaximum(human.getMaxHealth());
-        return human;
-    }
+    public Human NewHuman(JProgressBar pr1) {
+    Human newHuman = new Human(0, 80, 16, 1);
+    this.human = newHuman;  // Сохраняем ссылку
+    action.HP(newHuman, pr1);
+    pr1.setMaximum(newHuman.getMaxHealth());
+    return newHuman;
+}
 
     public void EndGameTop(Human human, JTextField text, JTable table) throws IOException {
         results.add(new Result(text.getText(), human.getPoints()));
@@ -102,5 +108,38 @@ public class Game {
                 model.setValueAt(results.get(i).getPoints(), i, 1);
             }
         }
+    }
+    
+    public void setTotalLocations(int locations) {
+        this.totalLocations = locations;
+        this.currentLocation = 1;
+    }
+    
+    public int getCurrentLocation() {
+        return currentLocation;
+    }
+    
+    public void nextLocation() {
+        this.currentLocation++;
+        if (this.human != null) {
+            this.currentLocationEnemiesCount = action.getEnemiesCountForLocation(
+                human.getLevel(), this.currentLocation);
+        }
+    }
+    
+    public boolean isLastLocation() {
+        return currentLocation > totalLocations;
+    }
+    
+ public void setCurrentLocationEnemiesCount(int count) {
+        this.currentLocationEnemiesCount = count;
+    }
+    
+    public int getCurrentLocationEnemiesCount() {
+        return this.currentLocationEnemiesCount;
+    }
+    
+    public void setHuman(Human human) {
+        this.human = human;
     }
 }
