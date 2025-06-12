@@ -15,6 +15,8 @@ public class Player {
     private int maxhealth;
     int damage;
     private int attack;
+    private int weakenDuration;
+    private boolean isWeakened; 
     
     public Player(int level, int health, int damage, int attack){
         this.level=level;
@@ -22,6 +24,8 @@ public class Player {
         this.damage=damage;
         this.attack=attack;
         this.maxhealth=health;
+        this.weakenDuration = 0;
+        this.isWeakened = false;
     }
    
     public void plusLevel(){
@@ -65,4 +69,9 @@ public class Player {
     public String getName(){
         return "";
     }
+    
+    public int getWeakenDuration() { return weakenDuration; }
+    public void setWeakenDuration(int duration) { this.weakenDuration = duration; }
+    public boolean isWeakened() { return isWeakened; }
+    public void setWeakened(boolean weakened) { this.isWeakened = weakened; }
 }

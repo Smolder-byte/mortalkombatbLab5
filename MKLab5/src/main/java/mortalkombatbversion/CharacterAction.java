@@ -15,20 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 
-/**
- *
- * @author Мария
- */
 public class CharacterAction {
-
     private final int experience_for_next_level[] = {40, 90, 180, 260, 410, 1000};
-
-    private final int kind_fight[][] = {{1, 0}, {1, 1, 0}, {0, 1, 0}, {1, 1, 1, 1}};
-
+    private final int kind_fight[][] = {{1, 0}, {1, 1, 0}, {0, 1, 0}, {1, 1, 1, 1}, {2, 0}, {2, 1}}; // Added weaken patterns
     private Player enemyes[] = new Player[6];
-
     EnemyFabric fabric = new EnemyFabric();
-
     private Player enemyy = null;
 
     public void setEnemyes() {
@@ -37,79 +28,73 @@ public class CharacterAction {
         enemyes[2] = fabric.create(2, 0);
         enemyes[3] = fabric.create(3, 0);
         enemyes[4] = fabric.create(4, 0);
-//        enemyes[5] = fabric.create(4, 0);
     }
 
     public Player[] getEnemyes() {
         return this.enemyes;
     }
 
-public Player ChooseEnemy(JLabel imageLabel, JLabel infoLabel, JLabel damageLabel, JLabel healthLabel) {
-    int i = (int) (Math.random() * 4);
-    ImageIcon icon1 = null;
-    
-    switch (i) {
-        case 0:
-            enemyy = enemyes[0];
-            icon1 = createScaledIcon("/Pictures/Baraka.png");
-            infoLabel.setText("Baraka (танк)");
-            break;
-        case 1:
-            enemyy = enemyes[1];
-            icon1 = createScaledIcon("/Pictures/Sub-Zero.png");
-            infoLabel.setText("Sub-Zero (маг)");
-            break;
-        case 2:
-            enemyy = enemyes[2];
-            icon1 = createScaledIcon("/Pictures/Liu Kang.png");
-            infoLabel.setText("Liu Kang (боец)");
-            break;
-        case 3:
-            enemyy = enemyes[3];
-            icon1 = createScaledIcon("/Pictures/Sonya Blade.png");
-            infoLabel.setText("Sonya Blade (солдат)");
-            break;
+    public Player ChooseEnemy(JLabel imageLabel, JLabel infoLabel, JLabel damageLabel, JLabel healthLabel) {
+        int i = (int) (Math.random() * 4);
+        ImageIcon icon1 = null;
+        switch (i) {
+            case 0:
+                enemyy = enemyes[0];
+                icon1 = createScaledIcon("/Pictures/Baraka.png");
+                infoLabel.setText("Baraka (танк)");
+                break;
+            case 1:
+                enemyy = enemyes[1];
+                icon1 = createScaledIcon("/Pictures/Sub-Zero.png");
+                infoLabel.setText("Sub-Zero (маг)");
+                break;
+            case 2:
+                enemyy = enemyes[2];
+                icon1 = createScaledIcon("/Pictures/Liu Kang.png");
+                infoLabel.setText("Liu Kang (боец)");
+                break;
+            case 3:
+                enemyy = enemyes[3];
+                icon1 = createScaledIcon("/Pictures/Sonya Blade.png");
+                infoLabel.setText("Sonya Blade (солдат)");
+                break;
+        }
+        imageLabel.setIcon(icon1);
+        damageLabel.setText(Integer.toString(enemyy.getDamage()));
+        healthLabel.setText(enemyy.getHealth() + "/" + enemyy.getMaxHealth());
+        return enemyy;
     }
-    
-    imageLabel.setIcon(icon1);
-    damageLabel.setText(Integer.toString(enemyy.getDamage()));
-    healthLabel.setText(enemyy.getHealth() + "/" + enemyy.getMaxHealth());
-    
-    return enemyy;
-}
 
-private ImageIcon createScaledIcon(String path) {
-    ImageIcon originalIcon = new ImageIcon(getClass().getResource(path));
-    Image scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
-    return new ImageIcon(scaledImage);
-}
+    private ImageIcon createScaledIcon(String path) {
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource(path));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(200, 275, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
+    }
 
     public Player ChooseBoss(JLabel imageLabel, JLabel infoLabel, JLabel damageLabel, 
-                        JLabel healthLabel, int locationNumber) {
-    enemyy = enemyes[4];
-    ImageIcon icon1 = createScaledIcon("/Pictures/Shao Kahn.png");
-    imageLabel.setIcon(icon1);
-    
-    // Установка характеристик босса
-    damageLabel.setText(Integer.toString(enemyy.getDamage()));
-    healthLabel.setText(enemyy.getHealth() + "/" + enemyy.getMaxHealth());
-    
-    return enemyy;
-}
+                            JLabel healthLabel, int locationNumber) {
+        enemyy = enemyes[4];
+        ImageIcon icon1 = createScaledIcon("/Pictures/Shao Kahn.png");
+        imageLabel.setIcon(icon1);
+        damageLabel.setText(Integer.toString(enemyy.getDamage()));
+        healthLabel.setText(enemyy.getHealth() + "/" + enemyy.getMaxHealth());
+        return enemyy;
+    }
 
-    public int[] EnemyBehavior(int k1, int k2, int k3, int k4, double i) {
+    public int[] EnemyBehavior(int k1, int k2, int k3, int k4, int k5, double i) {
         int arr[] = null;
         if (i < k1 * 0.01) {
             arr = kind_fight[0];
-        }
-        if (i >= k1 * 0.01 & i < (k1 + k2) * 0.01) {
+        } else if (i < (k1 + k2) * 0.01) {
             arr = kind_fight[1];
-        }
-        if (i >= (k1 + k2) * 0.01 & i < (k1 + k2 + k3) * 0.01) {
+        } else if (i < (k1 + k2 + k3) * 0.01) {
             arr = kind_fight[2];
-        }
-        if (i >= (k1 + k2 + k3) * 0.01 & i < 1) {
+        } else if (i < (k1 + k2 + k3 + k4) * 0.01) {
             arr = kind_fight[3];
+        } else if (i < (k1 + k2 + k3 + k4 + k5) * 0.01) {
+            arr = kind_fight[4]; // Weaken pattern
+        } else {
+            arr = kind_fight[5]; // Weaken pattern
         }
         return arr;
     }
@@ -118,25 +103,20 @@ private ImageIcon createScaledIcon(String path) {
         int arr[] = null;
         double i = Math.random();
         if (enemy instanceof Baraka) {
-            arr = action.EnemyBehavior(15, 15, 60, 10, i);
-        }
-        if (enemy instanceof SubZero) {
-            arr = action.EnemyBehavior(25, 25, 0, 50, i);
-        }
-        if (enemy instanceof LiuKang) {
-            arr = action.EnemyBehavior(13, 13, 10, 64, i);
-        }
-        if (enemy instanceof SonyaBlade) {
-            arr = action.EnemyBehavior(25, 25, 50, 0, i);
-        }
-        if (enemy instanceof ShaoKahn) {
-            arr = action.EnemyBehavior(10, 45, 0, 45, i);
+            arr = action.EnemyBehavior(15, 15, 60, 10, 0, i);
+        } else if (enemy instanceof SubZero) {
+            arr = action.EnemyBehavior(20, 20, 0, 30, 30, i); // Added weaken probability
+        } else if (enemy instanceof LiuKang) {
+            arr = action.EnemyBehavior(13, 13, 10, 64, 0, i);
+        } else if (enemy instanceof SonyaBlade) {
+            arr = action.EnemyBehavior(25, 25, 50, 0, 0, i);
+        } else if (enemy instanceof ShaoKahn) {
+            arr = action.EnemyBehavior(10, 45, 0, 45, 0, i);
         }
         return arr;
     }
 
     public void HP(Player player, JProgressBar progress) {
-
         if (player.getHealth() >= 0) {
             progress.setValue(player.getHealth());
         } else {
@@ -174,21 +154,21 @@ private ImageIcon createScaledIcon(String path) {
                 human.setNextExperience(experience_for_next_level[i + 1]);
                 NewHealthHuman(human);
                 if (human.getLevel() > oldLevel) {
-                showLevelUpDialog(human);
-            }
-                 for (int j = 0; j < enemyes.length; j++) {
-                if (enemyes[j] != null) {
-                    NewHealthEnemy(enemyes[j], human);
+                    showLevelUpDialog(human);
+                }
+                for (int j = 0; j < enemyes.length; j++) {
+                    if (enemyes[j] != null) {
+                        NewHealthEnemy(enemyes[j], human);
+                    }
                 }
             }
         }
     }
-}
 
     public void AddPointsBoss(Human human, Player[] enemyes, JFrames frames) {
-    int oldLevel = human.getLevel();
-    switch (human.getLevel()) {
-        case 0:
+        int oldLevel = human.getLevel();
+        switch (human.getLevel()) {
+            case 0:
                 human.setExperience(20);
                 human.setPoints(35 + human.getHealth() / 2);
                 break;
@@ -208,70 +188,63 @@ private ImageIcon createScaledIcon(String path) {
                 human.setExperience(50);
                 human.setPoints(65 + human.getHealth() / 2);
                 break;
-    }
-    
-    // Проверка на повышение уровня
-    for (int i = 0; i < 5; i++) {
-        if (experience_for_next_level[i] == human.getExperience()) {
-            human.plusLevel();
-            human.setNextExperience(experience_for_next_level[i + 1]);
-            NewHealthHuman(human);
-            if (human.getLevel() > oldLevel) {
-                showLevelUpDialog(human);
-            }
-            for (int j = 0; j < 4; j++) {
-                if (enemyes[j] != null) {
-                NewHealthEnemy(enemyes[j], human);
+        }
+        for (int i = 0; i < 5; i++) {
+            if (experience_for_next_level[i] == human.getExperience()) {
+                human.plusLevel();
+                human.setNextExperience(experience_for_next_level[i + 1]);
+                NewHealthHuman(human);
+                if (human.getLevel() > oldLevel) {
+                    showLevelUpDialog(human);
+                }
+                for (int j = 0; j < 4; j++) {
+                    if (enemyes[j] != null) {
+                        NewHealthEnemy(enemyes[j], human);
+                    }
+                }
             }
         }
     }
-}
-}
-    
-public void showLevelUpDialog(Human human) {
-    JDialog levelUpDialog = new JDialog((Frame) null, "Повышение уровня", true);
-    levelUpDialog.setSize(400, 300);
-    levelUpDialog.setLocationRelativeTo(null);
-    levelUpDialog.setLayout(new FlowLayout());
 
-    JLabel levelUpLabel = new JLabel("Уровень " + human.getLevel() + "!");
-    JLabel chooseUpLabel = new JLabel("Что улучшить?");
-    levelUpDialog.add(levelUpLabel);
-    levelUpDialog.add(chooseUpLabel);
-
-    // Пример: добавляем радиокнопки для выбора улучшения
-    JRadioButton healthButton = new JRadioButton("Увеличить здоровье");
-    JRadioButton damageButton = new JRadioButton("Увеличить урон");
-    ButtonGroup group = new ButtonGroup();
-    group.add(healthButton);
-    group.add(damageButton);
-    levelUpDialog.add(healthButton);
-    levelUpDialog.add(damageButton);
-
-    JButton okButton = new JButton("Подтвердить");
-    okButton.addActionListener(e -> {
-        if (healthButton.isSelected()) {
-            human.setMaxHealth(20); // Пример увеличения здоровья
-            human.setHealth(human.getMaxHealth());
-        } else if (damageButton.isSelected()) {
-            human.setDamage(3); // Пример увеличения урона
-        }
-        levelUpDialog.dispose();
-    });
-    levelUpDialog.add(okButton);
-
-    levelUpDialog.setVisible(true);
-}
+    public void showLevelUpDialog(Human human) {
+        JDialog levelUpDialog = new JDialog((Frame) null, "Повышение уровня", true);
+        levelUpDialog.setSize(400, 300);
+        levelUpDialog.setLocationRelativeTo(null);
+        levelUpDialog.setLayout(new FlowLayout());
+        JLabel levelUpLabel = new JLabel("Уровень " + human.getLevel() + "!");
+        JLabel chooseUpLabel = new JLabel("Что улучшить?");
+        levelUpDialog.add(levelUpLabel);
+        levelUpDialog.add(chooseUpLabel);
+        JRadioButton healthButton = new JRadioButton("Увеличить здоровье");
+        JRadioButton damageButton = new JRadioButton("Увеличить урон");
+        ButtonGroup group = new ButtonGroup();
+        group.add(healthButton);
+        group.add(damageButton);
+        levelUpDialog.add(healthButton);
+        levelUpDialog.add(damageButton);
+        JButton okButton = new JButton("Подтвердить");
+        okButton.addActionListener(e -> {
+            if (healthButton.isSelected()) {
+                human.setMaxHealth(20);
+                human.setHealth(human.getMaxHealth());
+            } else if (damageButton.isSelected()) {
+                human.setDamage(3);
+            }
+            levelUpDialog.dispose();
+        });
+        levelUpDialog.add(okButton);
+        levelUpDialog.setVisible(true);
+    }
 
     public void AddItems(int k1, int k2, int k3, Items[] items) {
         double i = Math.random();
         if (i < k1 * 0.01) {
             items[0].setCount(1);
         }
-        if (i >= k1 * 0.01 & i < (k1 + k2) * 0.01) {
+        if (i >= k1 * 0.01 && i < (k1 + k2) * 0.01) {
             items[1].setCount(1);
         }
-        if (i >= (k1 + k2) * 0.01 & i < (k1 + k2 + k3) * 0.01) {
+        if (i >= (k1 + k2) * 0.01 && i < (k1 + k2 + k3) * 0.01) {
             items[2].setCount(1);
         }
     }
@@ -297,8 +270,8 @@ public void showLevelUpDialog(Human human) {
                 damage = 6;
                 break;
         }
-            human.setMaxHealth(hp);
-            human.setDamage(damage);
+        human.setMaxHealth(hp);
+        human.setDamage(damage);
     }
 
     public void NewHealthEnemy(Player enemy, Human human) {
@@ -324,9 +297,8 @@ public void showLevelUpDialog(Human human) {
         }
         enemy.setMaxHealth((int) enemy.getMaxHealth() * hp / 100);
         enemy.setDamage((int) enemy.getDamage() * damage / 100);
-        enemy.setLevel(human.getLevel()); // Устанавливаем уровень врага равным уровню игрока
-}
-
+        enemy.setLevel(human.getLevel());
+    }
 
     public void UseItem(Player human, Items[] items, String name, JDialog dialog, JDialog dialog1) {
         switch (name) {
@@ -353,15 +325,13 @@ public void showLevelUpDialog(Human human) {
                 dialog.setBounds(300, 200, 400, 300);
                 break;
         }
-        
-        if(dialog.isVisible()==false){
+        if (!dialog.isVisible()) {
             dialog1.dispose();
         }
     }
-    
-   public int getEnemiesCountForLocation(int playerLevel, int locationNumber) {
-    int baseCount = 3 + locationNumber / 2;
-    return Math.min(baseCount, 5);
-}
-   
+
+    public int getEnemiesCountForLocation(int playerLevel, int locationNumber) {
+        int baseCount = 3 + locationNumber / 2;
+        return Math.min(baseCount, 5);
+    }
 }
