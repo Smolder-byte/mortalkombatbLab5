@@ -16,12 +16,15 @@ public class ChangeTexts {
             JLabel playerDamageLabel, JLabel turnLabel, JLabel messageLabel,
             int i, Items[] items, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3,
             JLabel weakenLabel) {
+        
         pointsLabel.setText(Integer.toString(((Human) human).getPoints()));
         expLabel.setText(Integer.toString(((Human) human).getExperience()) + "/" + ((Human) human).getNextExperience());
         playerLevelLabel.setText(Integer.toString(human.getLevel()) + " level");
         enemyLevelLabel.setText(Integer.toString(enemy.getLevel()) + " level");
         playerHealthLabel.setText(Integer.toString(human.getHealth()) + "/" + Integer.toString(human.getMaxHealth()));
         playerDamageLabel.setText(Integer.toString(human.getDamage()));
+        enemyHealthLabel.setText(enemy.getHealth() + "/" + enemy.getMaxHealth());
+        
         if (i % 2 == 1) {
             turnLabel.setText("Your turn");
         } else {

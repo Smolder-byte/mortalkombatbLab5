@@ -39,24 +39,24 @@ public class Fight {
                 l2.setText(p2.getName() + "'s weaken debuff has ended");
             }
         }
-
-        if (stun == 1) {
+        
+        if (stun == 1){
             p1.setAttack(-1);
         }
-
+        
         // Adjust damage based on weaken debuff
         int p1Damage = p1.isWeakened() ? (int)(p1.getDamage() * 0.5) : p1.getDamage();
         int p2Damage = p2.isWeakened() ? (int)(p2.getDamage() * 0.5) : p2.getDamage();
 
         switch (Integer.toString(p1.getAttack()) + Integer.toString(p2.getAttack())) {
             case "10": // Attack vs Block
-                v = Math.random();
-                if (p1 instanceof ShaoKahn && v < 0.15) {
-                    p2.setHealth(-(int) (p1Damage * 0.5));
-                    l2.setText("Your block is broken");
-                } else {
-                    p1.setHealth(-(int) (p2Damage * 0.5));
-                    l2.setText(p2.getName() + " counterattacked");
+                    v = Math.random();
+                    if (p1 instanceof ShaoKahn && v < 0.15) {
+                        p2.setHealth(-(int) (p1Damage * 0.5));
+                        l2.setText("Your block is broken");
+                    } else {
+                        p1.setHealth(-(int) p2Damage);
+                        l2.setText(p2.getName() + " counteratacked");
                 }
                 break;
             case "11": // Attack vs Attack
@@ -67,6 +67,7 @@ public class Fight {
                 v = Math.random();
                 if (v <= 0.5) {
                     stun = 1;
+                l.setText(p2.getName() + " was stunned");
                 }
                 l2.setText("Both defended themselves");
                 break;
@@ -74,43 +75,25 @@ public class Fight {
                 l2.setText(p1.getName() + " didn't attacked");
                 break;
             case "-10": // Stun vs Block
-                l.setText(p1.getName() + " was stunned");
                 stun = 0;
                 l2.setText(p2.getName() + " didn't attacked");
                 break;
-            case "0-1":
-                l.setText(p2.getName() + " was stunned");
-                stun = 0;
-                l2.setText(p1.getName() + " didn't attacked");
-                break;
             case "-11": // Stun vs Attack
                 p1.setHealth(-(int)(p2Damage * (p1.isWeakened() ? 1.25 : 1.0)));
-                l.setText(p1.getName() + " was stunned");
                 stun = 0;
                 l2.setText(p2.getName() + " attacked");
-                break;
-            case "1-1":
-                p2.setHealth(-(int)(p1Damage * (p2.isWeakened() ? 1.25 : 1.0)));
-                l.setText(p2.getName() + " was stunned");
-                stun = 0;
-                l2.setText(p1.getName() + " attacked");
                 break;
             case "-12":
                 p1.setWeakened(true);
                 p1.setWeakenDuration(max(1, p2.getLevel()));
-                l.setText(p1.getName() + " is weakened for " + p2.getLevel() + " turns");
-                 break;
-            case "2-1":
-                p2.setWeakened(true);
-                p2.setWeakenDuration(max(1, p1.getLevel()));
-                l.setText(p2.getName() + " is weakened for " + p1.getLevel() + " turns");
+                l.setText(p1.getName() + " is weakened for " + max(1, p2.getLevel()) + " turns");
                  break;
             case "20": // Weaken vs Block
                 v = Math.random();
                 if (v < 0.75) {
                     p2.setWeakened(true);
                     p2.setWeakenDuration(max(1, p1.getLevel()));
-                    l.setText(p2.getName() + " is weakened for " + p1.getLevel() + " turns");
+                    l.setText(p2.getName() + " is weakened for " + max(1, p1.getLevel()) + " turns");
                 } else {
                     l2.setText(p2.getName() + " resisted weaken");
                 }
@@ -124,7 +107,7 @@ public class Fight {
                 if (v < 0.75) {
                     p1.setWeakened(true);
                     p1.setWeakenDuration(p2.getLevel());
-                    l.setText(p1.getName() + " is weakened for " + p2.getLevel() + " turns");
+                    l.setText(p1.getName() + " is weakened for " + max(1, p2.getLevel()) + " turns");
                 } else {
                     l2.setText(p1.getName() + " resisted weaken");
                 }
@@ -147,20 +130,23 @@ public class Fight {
             JLabel label8, Items[] items, JRadioButton rb, Game game, 
             JLabel weakenLabel) {
         label7.setText("");
+
         human.setAttack(a);
 
         if (k < kind_attack.length - 1) {
-            k++;
+        k++;
         } else {
-            kind_attack = action.ChooseBehavior(enemy, action);
-            k = 0;
+        kind_attack = action.ChooseBehavior(enemy, action);
+        k = 0;
         }
         enemy.setAttack(kind_attack[k]);
+
         if (i % 2 == 1) {
             Move(human, enemy, label7, label8);
         } else {
             Move(enemy, human, label7, label8);
         }
+        
         i++;
         change.RoundTexts(human, enemy, label, label2, i, label6, weakenLabel);
         action.HP(human, pr1);
