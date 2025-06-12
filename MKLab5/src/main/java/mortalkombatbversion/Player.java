@@ -11,9 +11,9 @@ package mortalkombatbversion;
 public class Player {
     
     private int level;
-    private int health;
+    int health;
     private int maxhealth;
-    private int damage;
+    int damage;
     private int attack;
     
     public Player(int level, int health, int damage, int attack){
@@ -65,5 +65,4 @@ public class Player {
     public String getName(){
         return "";
     }
-    
 }

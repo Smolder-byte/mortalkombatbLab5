@@ -4,11 +4,16 @@
  */
 package mortalkombatbversion;
 
+import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Image;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -139,7 +144,8 @@ private ImageIcon createScaledIcon(String path) {
         }
     }
 
-    public void AddPoints(Human human, Player[] enemyes) {
+    public void AddPoints(Human human, Player[] enemyes, JFrames frames) {
+        int oldLevel = human.getLevel();
         switch (human.getLevel()) {
             case 0:
                 human.setExperience(20);
@@ -167,6 +173,9 @@ private ImageIcon createScaledIcon(String path) {
                 human.plusLevel();
                 human.setNextExperience(experience_for_next_level[i + 1]);
                 NewHealthHuman(human);
+                if (human.getLevel() > oldLevel) {
+                showLevelUpDialog(human);
+            }
                  for (int j = 0; j < enemyes.length; j++) {
                 if (enemyes[j] != null) {
                     NewHealthEnemy(enemyes[j], human);
@@ -176,7 +185,8 @@ private ImageIcon createScaledIcon(String path) {
     }
 }
 
-    public void AddPointsBoss(Human human, Player[] enemyes) {
+    public void AddPointsBoss(Human human, Player[] enemyes, JFrames frames) {
+    int oldLevel = human.getLevel();
     switch (human.getLevel()) {
         case 0:
                 human.setExperience(20);
@@ -206,6 +216,9 @@ private ImageIcon createScaledIcon(String path) {
             human.plusLevel();
             human.setNextExperience(experience_for_next_level[i + 1]);
             NewHealthHuman(human);
+            if (human.getLevel() > oldLevel) {
+                showLevelUpDialog(human);
+            }
             for (int j = 0; j < 4; j++) {
                 if (enemyes[j] != null) {
                 NewHealthEnemy(enemyes[j], human);
@@ -213,6 +226,41 @@ private ImageIcon createScaledIcon(String path) {
         }
     }
 }
+}
+    
+public void showLevelUpDialog(Human human) {
+    JDialog levelUpDialog = new JDialog((Frame) null, "Повышение уровня", true);
+    levelUpDialog.setSize(400, 300);
+    levelUpDialog.setLocationRelativeTo(null);
+    levelUpDialog.setLayout(new FlowLayout());
+
+    JLabel levelUpLabel = new JLabel("Уровень " + human.getLevel() + "!");
+    JLabel chooseUpLabel = new JLabel("Что улучшить?");
+    levelUpDialog.add(levelUpLabel);
+    levelUpDialog.add(chooseUpLabel);
+
+    // Пример: добавляем радиокнопки для выбора улучшения
+    JRadioButton healthButton = new JRadioButton("Увеличить здоровье");
+    JRadioButton damageButton = new JRadioButton("Увеличить урон");
+    ButtonGroup group = new ButtonGroup();
+    group.add(healthButton);
+    group.add(damageButton);
+    levelUpDialog.add(healthButton);
+    levelUpDialog.add(damageButton);
+
+    JButton okButton = new JButton("Подтвердить");
+    okButton.addActionListener(e -> {
+        if (healthButton.isSelected()) {
+            human.setMaxHealth(20); // Пример увеличения здоровья
+            human.setHealth(human.getMaxHealth());
+        } else if (damageButton.isSelected()) {
+            human.setDamage(3); // Пример увеличения урона
+        }
+        levelUpDialog.dispose();
+    });
+    levelUpDialog.add(okButton);
+
+    levelUpDialog.setVisible(true);
 }
 
     public void AddItems(int k1, int k2, int k3, Items[] items) {
@@ -249,8 +297,8 @@ private ImageIcon createScaledIcon(String path) {
                 damage = 6;
                 break;
         }
-        human.setMaxHealth(hp);
-        human.setDamage(damage);
+            human.setMaxHealth(hp);
+            human.setDamage(damage);
     }
 
     public void NewHealthEnemy(Player enemy, Human human) {

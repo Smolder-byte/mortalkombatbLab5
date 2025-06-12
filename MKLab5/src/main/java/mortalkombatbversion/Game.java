@@ -142,4 +142,16 @@ public class Game {
     public void setHuman(Human human) {
         this.human = human;
     }
+    
+    public void setCurrentLocation(int location) {
+    this.currentLocation = location;
+}
+
+public void resetGame() {
+    this.currentLocation = 1;
+    this.currentLocationEnemiesCount = 0;
+    if (this.human != null) {
+        this.human.setWin(0);
+    }
+}
 }

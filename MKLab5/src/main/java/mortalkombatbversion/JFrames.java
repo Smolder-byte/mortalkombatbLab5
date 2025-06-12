@@ -117,6 +117,11 @@ public class JFrames extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
+        jDialogLevelUp = new javax.swing.JDialog();
+        jPanelLevelUp = new javax.swing.JPanel();
+        jLabelLevelUp = new javax.swing.JLabel();
+        jButtonIncreaseDamage = new javax.swing.JButton();
+        jButtonIncreaseHealth = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -853,6 +858,63 @@ public class JFrames extends javax.swing.JFrame {
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialogLevelUp.setTitle("Level Up!");
+
+        jLabelLevelUp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelLevelUp.setText("Вы получили новый уровень!");
+
+        jButtonIncreaseDamage.setText("Увеличить урон (+3)");
+        jButtonIncreaseDamage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncreaseDamageActionPerformed(evt);
+            }
+        });
+
+        jButtonIncreaseHealth.setText("Увеличить хп (+20)");
+        jButtonIncreaseHealth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncreaseHealthActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelLevelUpLayout = new javax.swing.GroupLayout(jPanelLevelUp);
+        jPanelLevelUp.setLayout(jPanelLevelUpLayout);
+        jPanelLevelUpLayout.setHorizontalGroup(
+            jPanelLevelUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLevelUpLayout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addComponent(jLabelLevelUp, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLevelUpLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jButtonIncreaseDamage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonIncreaseHealth)
+                .addGap(12, 12, 12))
+        );
+        jPanelLevelUpLayout.setVerticalGroup(
+            jPanelLevelUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLevelUpLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jLabelLevelUp)
+                .addGap(84, 84, 84)
+                .addGroup(jPanelLevelUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonIncreaseHealth, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(jButtonIncreaseDamage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(51, 51, 51))
+        );
+
+        javax.swing.GroupLayout jDialogLevelUpLayout = new javax.swing.GroupLayout(jDialogLevelUp.getContentPane());
+        jDialogLevelUp.getContentPane().setLayout(jDialogLevelUpLayout);
+        jDialogLevelUpLayout.setHorizontalGroup(
+            jDialogLevelUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelLevelUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialogLevelUpLayout.setVerticalGroup(
+            jDialogLevelUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelLevelUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -963,9 +1025,17 @@ public class JFrames extends javax.swing.JFrame {
         }
         game.setTotalLocations(locations);
     } catch (NumberFormatException e) {
-        game.setTotalLocations(5); // Значение по умолчанию
-    }
+        game.setTotalLocations(3); // Значение по умолчанию
+    }    
     
+    // Сброс только необходимых параметров
+    if (human != null) {
+        human.setNewHealth(human.getMaxHealth());
+        human.setWin(0);
+    }
+    game.setCurrentLocation(1);
+    game.setCurrentLocationEnemiesCount(0);
+            
     jFrame1.setVisible(rootPaneCheckingEnabled);
     jFrame1.setSize(1000,700);
     
@@ -1068,6 +1138,24 @@ public class JFrames extends javax.swing.JFrame {
         jDialog6.dispose();
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButtonIncreaseDamageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncreaseDamageActionPerformed
+    human.setDamage(3);
+        jDialogLevelUp.dispose();
+        updateStatsDisplay();
+    }//GEN-LAST:event_jButtonIncreaseDamageActionPerformed
+
+    private void jButtonIncreaseHealthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncreaseHealthActionPerformed
+        human.setMaxHealth(20);
+        jDialogLevelUp.dispose();
+        updateStatsDisplay();
+    }//GEN-LAST:event_jButtonIncreaseHealthActionPerformed
+    
+    private void updateStatsDisplay() {
+    jLabel9.setText(Integer.toString(human.getDamage()));
+    jLabel12.setText(human.getHealth() + "/" + human.getMaxHealth());
+    jProgressBar1.setMaximum(human.getMaxHealth());
+    jProgressBar1.setValue(human.getHealth());
+}
     /**
      * @param args the command line arguments
      */
@@ -1116,13 +1204,16 @@ public class JFrames extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonIncreaseDamage;
+    private javax.swing.JButton jButtonIncreaseHealth;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JDialog jDialog3;
     private javax.swing.JDialog jDialog4;
     private javax.swing.JDialog jDialog5;
     private javax.swing.JDialog jDialog6;
-    private javax.swing.JFrame jFrame1;
+    public javax.swing.JDialog jDialogLevelUp;
+    public javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1156,6 +1247,7 @@ public class JFrames extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    public javax.swing.JLabel jLabelLevelUp;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1164,6 +1256,7 @@ public class JFrames extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanelLevelUp;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JRadioButton jRadioButton1;

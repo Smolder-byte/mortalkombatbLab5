@@ -26,6 +26,7 @@ public class Fight {
     int k = -1;
     int stun = 0;
     double v = 0.0;
+    private JFrames frames;
 
     public void Move(Player p1, Player p2, JLabel l, JLabel l2) {
         if (stun == 1) {
@@ -116,53 +117,55 @@ public class Fight {
     }
 
     public void EndRound(Player human, Player enemy, JDialog dialog, JLabel label,
-    CharacterAction action, Items[] items, Game game, 
-    JDialog victoryDialog, JDialog noTopDialog, JFrame mainFrame,
-    JLabel victoryLabel, JLabel noTopLabel) {
+            CharacterAction action, Items[] items, Game game, 
+            JDialog victoryDialog, JDialog noTopDialog, JFrame mainFrame,
+            JLabel victoryLabel, JLabel noTopLabel) {
 
-    Human player = (Human) human;
-    
-    // Инициализация первой локации
-    if (game.getCurrentLocation() == 0) {
-        game.setHuman(player);
-        game.nextLocation(); // Это установит количество врагов для первой локации
-    }
-
-    dialog.setVisible(true);
-    dialog.setBounds(300, 150, 700, 600);
-    
-    // Всегда увеличиваем счетчик пройденных врагов
-    player.setWin(player.getWin() + 1);
-    
-    if (player.getHealth() > 0) {
-        label.setText("You win");
-        // Награда за победу
-        if (enemy instanceof ShaoKahn) {
-            action.AddItems(38, 23, 8, items);
-            action.AddPointsBoss(player, action.getEnemyes()); // Добавлено начисление опыта за босса
-            game.nextLocation(); // Переход на следующую локацию
-            if (game.isLastLocation()) {
-                EndFinalRound(player, action, game.getResults(), 
-                    victoryDialog, noTopDialog, mainFrame, victoryLabel, noTopLabel);
-                return;
+        Human player = (Human) human;
+        
+        dialog.setVisible(true);
+        dialog.setBounds(300, 150, 700, 600);
+        
+        player.setWin(player.getWin() + 1);
+        
+        if (player.getHealth() > 0) {
+            label.setText("You win");
+            // Награда за победу
+            if (enemy instanceof ShaoKahn) {
+                action.AddItems(38, 23, 8, items);
+                action.AddPointsBoss(player, action.getEnemyes(), frames);
+                game.nextLocation();
+                if (game.isLastLocation()) {
+                    EndFinalRound(player, action, game.getResults(), 
+                        victoryDialog, noTopDialog, mainFrame, victoryLabel, noTopLabel);
+                    return;
+                }
+                player.setWin(0);
+            } else {
+                action.AddItems(25, 15, 5, items);
+                action.AddPoints(player, action.getEnemyes(), frames);
             }
-            player.setWin(0); // Сброс счетчика побед для новой локации
+            
+
+            player.setNewHealth(player.getMaxHealth());
         } else {
-            action.AddItems(25, 15, 5, items);
-            action.AddPoints(player, action.getEnemyes());
+            label.setText(enemy.getName() + " win");
+            player.setNewHealth(player.getMaxHealth());
+            if (enemy instanceof ShaoKahn) {
+                game.nextLocation();
+                if (game.isLastLocation()) {
+                    EndFinalRound(player, action, game.getResults(), 
+                        victoryDialog, noTopDialog, mainFrame, victoryLabel, noTopLabel);
+                    return;
+                }
+                player.setWin(0);
+            }
         }
-    } else {
-        label.setText(enemy.getName() + " win");
-        // Не даем награды за поражение
+
+        i = 1;
+        k = -1;
+        kind_attack = ResetAttack();
     }
-
-    // Восстанавливаем полное здоровье игрока в любом случае
-    player.setNewHealth(player.getMaxHealth());
-
-    i = 1;
-    k = -1;
-    kind_attack = ResetAttack();
-}
 
     public void EndFinalRound(Human human, CharacterAction action,
         ArrayList<Result> results, JDialog dialog1, JDialog dialog2, JFrame frame,
@@ -171,7 +174,7 @@ public class Fight {
     String text = "Победа не на вашей стороне";
     if (human.getHealth() > 0) {
         human.setWin(12); // 12 - специальный код полной победы
-        action.AddPoints(human, action.getEnemyes());
+        action.AddPoints(human, action.getEnemyes(), frames);
         text = "Победа на вашей стороне! Игра пройдена!";
     }
     

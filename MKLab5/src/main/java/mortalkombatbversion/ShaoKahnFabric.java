@@ -13,7 +13,7 @@ public class ShaoKahnFabric implements EnemyFabricInterface{
     @Override
     public Player create(int i) {
         Player enemy;
-        enemy = new ShaoKahn(1, 100, 30, 1);
+        enemy = new ShaoKahn(1, 85, 25, 1);
         return enemy;
     }
 }
