@@ -345,11 +345,11 @@ public class CharacterAction {
     public void addItems(int item1Chance, int item2Chance, int item3Chance, Items[] items) {
         double randomValue = Math.random();
         if (randomValue < item1Chance * 0.01) {
-            items[0].setCount(1);
+            items[0].plusCount(1);
         } else if (randomValue < (item1Chance + item2Chance) * 0.01) {
-            items[1].setCount(1);
+            items[1].plusCount(1);
         } else if (randomValue < (item1Chance + item2Chance + item3Chance) * 0.01) {
-            items[2].setCount(1);
+            items[2].plusCount(1);
         }
     }
 
@@ -426,7 +426,7 @@ public class CharacterAction {
             case "jRadioButton1":
                 if (items[0].getCount() > 0) {
                     human.setHealth((int) (human.getMaxHealth() * 0.25));
-                    items[0].setCount(-1);
+                    items[0].plusCount(-1);
                 } else {
                     errorDialog.setVisible(true);
                     errorDialog.setBounds(300, 200, 400, 300);
@@ -435,7 +435,7 @@ public class CharacterAction {
             case "jRadioButton2":
                 if (items[1].getCount() > 0) {
                     human.setHealth((int) (human.getMaxHealth() * 0.5));
-                    items[1].setCount(-1);
+                    items[1].plusCount(-1);
                 } else {
                     errorDialog.setVisible(true);
                     errorDialog.setBounds(300, 200, 400, 300);

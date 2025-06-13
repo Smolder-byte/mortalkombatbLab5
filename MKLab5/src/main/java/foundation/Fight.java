@@ -201,6 +201,10 @@ public class Fight {
                 }
                 break;
         }
+        if (p1.getHealth() < 0 || 0 > p2.getHealth()){
+            l2.setText("");
+            l.setText("");
+        }
     }
 
     /**
@@ -263,7 +267,7 @@ public class Fight {
 
         if (human.getHealth() <= 0 && items[2].getCount() > 0) {
             human.setNewHealth((int) (human.getMaxHealth() * 0.05));
-            items[2].setCount(-1);
+            items[2].plusCount(-1);
             action.updateHealthBar(human, playerHealthBar);
             playerHealthLabel.setText(human.getHealth() + "/" + human.getMaxHealth());
             itemButton.setText(items[2].getName() + ", " + items[2].getCount() + " шт");
@@ -322,18 +326,16 @@ public class Fight {
             }
             human.setNewHealth(human.getMaxHealth());
         } else {
-            resultLabel.setText(enemy.getName() + " win");
-            human.setNewHealth(human.getMaxHealth());
-            if (enemy instanceof ShaoKahn) {
-                game.nextLocation();
-                if (game.isLastLocation()) {
-                    endFinalRound(human, action, game.getResults(), victoryDialog, noTopDialog,
-                                  mainFrame, victoryLabel, noTopLabel);
-                    return;
-                }
-                human.setWin(0);
+            for (Items item : items) {
+            item.setCount(0); 
             }
+            noTopLabel.setText("");
+            resultLabel.setText("You Lose");
+            endFinalRound(human, action, game.getResults(), victoryDialog, noTopDialog,
+                          mainFrame, victoryLabel, noTopLabel);
+            return;
         }
+        human.setNewHealth(human.getMaxHealth());
 
         currentTurn = 1;
         attackIndex = -1;
@@ -357,39 +359,44 @@ public class Fight {
      * @param noTopLabel    метка для текста без топ-10
      */
     public void endFinalRound(Human human, CharacterAction action, ArrayList<Result> results,
-                              JDialog victoryDialog, JDialog noTopDialog, JFrame mainFrame,
-                              JLabel victoryLabel, JLabel noTopLabel) {
-        String resultText = "Победа не на вашей стороне";
-        if (human.getHealth() > 0) {
-            human.setWin(12);
-            action.addPoints(human, action.getEnemies(), gameInterface);
-            resultText = "Победа на вашей стороне! Игра пройдена!";
-        }
+                          JDialog victoryDialog, JDialog noTopDialog, JFrame mainFrame,
+                          JLabel victoryLabel, JLabel noTopLabel) {
+    String resultText = human.getHealth() > 0 ? 
+        "Победа на вашей стороне! Игра пройдена!" : 
+        "Победа не на вашей стороне";
 
-        boolean isTopPlayer = results == null || results.size() < 10;
-        if (results != null) {
-            int lowerScores = 0;
-            for (Result result : results) {
-                if (human.getPoints() < result.getPoints()) {
-                    lowerScores++;
-                }
-            }
-            if (lowerScores < 10) {
-                isTopPlayer = true;
+    if (human.getHealth() > 0) {
+        human.setWin(12);
+        action.addPoints(human, action.getEnemies(), gameInterface);
+    }
+
+    boolean isTopPlayer = results == null || results.size() < 10;
+    if (results != null) {
+        int lowerScores = 0;
+        for (Result result : results) {
+            if (human.getPoints() < result.getPoints()) {
+                lowerScores++;
             }
         }
-
-        if (isTopPlayer) {
-            victoryDialog.setVisible(true);
-            victoryDialog.setBounds(150, 150, 600, 500);
-            victoryLabel.setText(resultText);
-        } else {
-            noTopDialog.setVisible(true);
-            noTopDialog.setBounds(150, 150, 470, 360);
-            noTopLabel.setText(resultText);
+        if (lowerScores < 10) {
+            isTopPlayer = true;
         }
+    }
+
+    if (mainFrame != null) {
         mainFrame.dispose();
     }
+
+    if (isTopPlayer) {
+        victoryDialog.setVisible(true);
+        victoryDialog.setBounds(150, 150, 600, 500);
+        victoryLabel.setText(resultText);
+    } else {
+        noTopDialog.setVisible(true);
+        noTopDialog.setBounds(150, 150, 470, 360);
+        noTopLabel.setText(resultText);
+    }
+}
 
     /**
      * Сбрасывает последовательность атак врага.

@@ -4,6 +4,7 @@ import additions.Items;
 import additions.Items;
 import characters.Human;
 import characters.Player;
+import static java.lang.Math.max;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
@@ -112,13 +113,13 @@ public class ChangeTexts {
         if (human.isWeakened()) {
             status.append(human.getName())
                   .append(" weakened (")
-                  .append(human.getWeakenDuration())
+                  .append(max(1,human.getWeakenDuration()))
                   .append(" turns left)\n");
         }
         if (enemy.isWeakened()) {
             status.append(enemy.getName())
                   .append(" weakened (")
-                  .append(enemy.getWeakenDuration())
+                  .append(max(1,enemy.getWeakenDuration()))
                   .append(" turns left)");
         }
         weakenStatusLabel.setText(status.toString());

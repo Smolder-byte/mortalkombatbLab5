@@ -1231,12 +1231,6 @@ public class JFrames extends javax.swing.JFrame {
                 jLabel26, jLabel29, jLabel27, items, jRadioButton3, game, weakenLabel);
     }//GEN-LAST:event_jButton12ActionPerformed
     
-//    private void updateStatsDisplay() {
-//    jLabel9.setText(Integer.toString(human.getDamage()));
-//    jLabel12.setText(human.getHealth() + "/" + human.getMaxHealth());
-//    jProgressBar1.setMaximum(human.getMaxHealth());
-//    jProgressBar1.setValue(human.getHealth());
-//}
     /**
      * Точка входа в приложение.
      *

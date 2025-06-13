@@ -33,8 +33,12 @@ public class Items {
      *
      * @param countChange изменение количества (может быть положительным или отрицательным)
      */
-    public void setCount(int countChange) {
+    public void plusCount(int countChange) {
         this.count += countChange;
+    }
+    
+    public void setCount(int countChange) {
+        this.count = countChange;
     }
 
     /**
