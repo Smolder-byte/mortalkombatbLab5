@@ -1,0 +1,86 @@
+@options
+@packages
+@argfile
+-classpath
+'C:/Users/syoma/.m2/repository/org/apache/poi/poi/5.2.0/poi-5.2.0.jar;C:/Users/syoma/.m2/repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar;C:/Users/syoma/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar;C:/Users/syoma/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar;C:/Users/syoma/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar;C:/Users/syoma/.m2/repository/com/zaxxer/SparseBitSet/1.2/SparseBitSet-1.2.jar;C:/Users/syoma/.m2/repository/org/apache/poi/poi-ooxml/5.2.0/poi-ooxml-5.2.0.jar;C:/Users/syoma/.m2/repository/org/apache/poi/poi-ooxml-lite/5.2.0/poi-ooxml-lite-5.2.0.jar;C:/Users/syoma/.m2/repository/org/apache/xmlbeans/xmlbeans/5.0.3/xmlbeans-5.0.3.jar;C:/Users/syoma/.m2/repository/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar;C:/Users/syoma/.m2/repository/com/github/virtuald/curvesapi/1.06/curvesapi-1.06.jar;C:/Users/syoma/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar;C:/Users/syoma/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar;C:/Users/syoma/.m2/repository/org/apache/logging/log4j/log4j-core/2.24.3/log4j-core-2.24.3.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'22'
+-sourcepath
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java;C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/target/generated-sources/annotations'
+-Xdoclint:none
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'MKLab5 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'MKLab5 1.0-SNAPSHOT API'
+additions
+characters
+fabrics
+foundation
+mortalkombatbversion
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/additions/ChangeTexts.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/additions/Items.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/additions/Result.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/Baraka.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/Human.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/LiuKang.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/Player.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/ShaoKahn.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/SonyaBlade.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/characters/SubZero.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/BarakaFabric.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/EnemyFabric.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/EnemyFabricInterface.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/LiuKangFabric.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/ShaoKahnFabric.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/SonyaBladeFabric.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/fabrics/SubZeroFabric.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/foundation/CharacterAction.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/foundation/Fight.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/foundation/Game.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/foundation/JFrames.java'
+'C:/Users/syoma/OneDrive/Документы/NetBeansProjects/mortalkombatbLab5/MKLab5/src/main/java/mortalkombatbversion/MortalKombatBVersion.java'
+C:\Users\syoma\.m2\repository\org\apache\poi\poi\5.2.0\poi-5.2.0.jar = 1744798865684
+C:\Users\syoma\.m2\repository\commons-codec\commons-codec\1.15\commons-codec-1.15.jar = 1744798866042
+C:\Users\syoma\.m2\repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar = 1744798868215
+C:\Users\syoma\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar = 1744798872747
+C:\Users\syoma\.m2\repository\commons-io\commons-io\2.11.0\commons-io-2.11.0.jar = 1740556892293
+C:\Users\syoma\.m2\repository\com\zaxxer\SparseBitSet\1.2\SparseBitSet-1.2.jar = 1744798866501
+C:\Users\syoma\.m2\repository\org\apache\poi\poi-ooxml\5.2.0\poi-ooxml-5.2.0.jar = 1744798871221
+C:\Users\syoma\.m2\repository\org\apache\poi\poi-ooxml-lite\5.2.0\poi-ooxml-lite-5.2.0.jar = 1744798874241
+C:\Users\syoma\.m2\repository\org\apache\xmlbeans\xmlbeans\5.0.3\xmlbeans-5.0.3.jar = 1744798869419
+C:\Users\syoma\.m2\repository\org\apache\commons\commons-compress\1.21\commons-compress-1.21.jar = 1744798870291
+C:\Users\syoma\.m2\repository\com\github\virtuald\curvesapi\1.06\curvesapi-1.06.jar = 1744798868922
+C:\Users\syoma\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar = 1749753631971
+C:\Users\syoma\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar = 1749753632554
+C:\Users\syoma\.m2\repository\org\apache\logging\log4j\log4j-core\2.24.3\log4j-core-2.24.3.jar = 1749753632710
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\src\main\java = 1749769784047
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\generated-sources\annotations = 1749776034673
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\allclasses-index.html = 1749776045655
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\allpackages-index.html = 1749776045659
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\element-list = 1749776045362
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\help-doc.html = 1749776045711
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\index-all.html = 1749776045695
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\index.html = 1749776045620
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\member-search-index.js = 1749776045668
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\module-search-index.js = 1749776045661
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\overview-summary.html = 1749776045704
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\overview-tree.html = 1749776045613
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\package-search-index.js = 1749776045664
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\search.html = 1749776045700
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\serialized-form.html = 1749776045452
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\tag-search-index.js = 1749776045670
+C:\Users\syoma\OneDrive\Документы\NetBeansProjects\mortalkombatbLab5\MKLab5\target\apidocs\type-search-index.js = 1749776045666
