@@ -322,10 +322,10 @@ public class CharacterAction {
         JButton okButton = new JButton("ОК");
         okButton.addActionListener(e -> {
             if (healthButton.isSelected()) {
-                human.setMaxHealth(human.getMaxHealth() + 20);
+                human.setMaxHealth(20);
                 human.setHealth(human.getMaxHealth());
             } else if (damageButton.isSelected()) {
-                human.setDamage(human.getDamage() + 4);
+                human.setDamage(4);
             }
             dialog.dispose();
         });
